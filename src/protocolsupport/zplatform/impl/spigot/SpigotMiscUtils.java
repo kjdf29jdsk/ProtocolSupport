@@ -7,15 +7,14 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.FutureTask;
 
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.craftbukkit.v1_12_R1.CraftServer;
-import org.bukkit.craftbukkit.v1_12_R1.CraftWorld;
-import org.bukkit.craftbukkit.v1_12_R1.inventory.CraftItemStack;
-import org.bukkit.craftbukkit.v1_12_R1.util.CraftIconCache;
+import org.bukkit.craftbukkit.CraftServer;
+import org.bukkit.craftbukkit.CraftWorld;
+import org.bukkit.craftbukkit.inventory.CraftItemStack;
+import org.bukkit.craftbukkit.util.CraftIconCache;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.CachedServerIcon;
-import org.spigotmc.SpigotConfig;
+//import org.spigotmc.SpigotConfig;
 
 import com.google.common.base.Predicates;
 import com.google.common.collect.Lists;
@@ -23,13 +22,13 @@ import com.mojang.authlib.properties.Property;
 
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelPipeline;
-import net.minecraft.server.v1_12_R1.AxisAlignedBB;
-import net.minecraft.server.v1_12_R1.EntityPlayer;
-import net.minecraft.server.v1_12_R1.EnumProtocol;
-import net.minecraft.server.v1_12_R1.MinecraftServer;
-import net.minecraft.server.v1_12_R1.NBTTagCompound;
-import net.minecraft.server.v1_12_R1.NetworkManager;
-import net.minecraft.server.v1_12_R1.WorldServer;
+import net.minecraft.server.AxisAlignedBB;
+import net.minecraft.server.EntityPlayer;
+import net.minecraft.server.EnumProtocol;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.NBTTagCompound;
+import net.minecraft.server.NetworkManager;
+import net.minecraft.server.WorldServer;
 import protocolsupport.api.events.PlayerPropertiesResolveEvent.ProfileProperty;
 import protocolsupport.protocol.pipeline.IPacketPrepender;
 import protocolsupport.protocol.pipeline.IPacketSplitter;
@@ -83,12 +82,12 @@ public class SpigotMiscUtils implements PlatformUtils {
 
 	@Override
 	public ItemStack createItemStackFromNBTTag(NBTTagCompoundWrapper tag) {
-		return CraftItemStack.asCraftMirror(new net.minecraft.server.v1_12_R1.ItemStack(((SpigotNBTTagCompoundWrapper) tag).unwrap()));
+		return CraftItemStack.asCraftMirror(new net.minecraft.server.ItemStack(((SpigotNBTTagCompoundWrapper) tag).unwrap()));
 	}
 
 	@Override
 	public NBTTagCompoundWrapper createNBTTagFromItemStack(ItemStack itemstack) {
-		net.minecraft.server.v1_12_R1.ItemStack nmsitemstack = CraftItemStack.asNMSCopy(itemstack);
+		net.minecraft.server.ItemStack nmsitemstack = CraftItemStack.asNMSCopy(itemstack);
 		NBTTagCompound compound = new NBTTagCompound();
 		nmsitemstack.save(compound);
 		return SpigotNBTTagCompoundWrapper.wrap(compound);
@@ -106,7 +105,7 @@ public class SpigotMiscUtils implements PlatformUtils {
 
 	@Override
 	public String getOutdatedServerMessage() {
-		return SpigotConfig.outdatedServerMessage;
+		return "The server is outdated. Please connect with an older version.";
 	}
 
 	@Override
@@ -116,7 +115,7 @@ public class SpigotMiscUtils implements PlatformUtils {
 
 	@Override
 	public boolean isProxyEnabled() {
-		return SpigotConfig.bungee;
+		return getServer().server.bungee;
 	}
 
 	@Override
@@ -152,7 +151,7 @@ public class SpigotMiscUtils implements PlatformUtils {
 	@Override
 	public <V> FutureTask<V> callSyncTask(Callable<V> call) {
 		FutureTask<V> task = new FutureTask<>(call);
-		getServer().processQueue.add(task);
+		getServer().addMainThreadTask(task);
 		return task;
 	}
 

@@ -66,7 +66,7 @@ public class ProtocolSupportAPI {
 	 * @return player {@link Connection} or null
 	 */
 	public static Connection getConnection(Player player) {
-		return getConnection(player.spigot().getRawAddress());
+		return getConnection(player.getAddress());
 	}
 
 	/**

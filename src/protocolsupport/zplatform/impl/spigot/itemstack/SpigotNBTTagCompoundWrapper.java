@@ -3,14 +3,14 @@ package protocolsupport.zplatform.impl.spigot.itemstack;
 import java.util.Collection;
 import java.util.Objects;
 
-import org.spigotmc.SneakyThrow;
+//import org.spigotmc.SneakyThrow;
 
-import net.minecraft.server.v1_12_R1.MojangsonParseException;
-import net.minecraft.server.v1_12_R1.MojangsonParser;
-import net.minecraft.server.v1_12_R1.NBTBase;
-import net.minecraft.server.v1_12_R1.NBTTagCompound;
-import net.minecraft.server.v1_12_R1.NBTTagList;
-import net.minecraft.server.v1_12_R1.NBTTagLongArray;
+import net.minecraft.server.MojangsonParseException;
+import net.minecraft.server.MojangsonParser;
+import net.minecraft.server.NBTBase;
+import net.minecraft.server.NBTTagCompound;
+import net.minecraft.server.NBTTagList;
+import net.minecraft.server.NBTTagLongArray;
 import protocolsupport.zplatform.itemstack.NBTTagCompoundWrapper;
 import protocolsupport.zplatform.itemstack.NBTTagListWrapper;
 import protocolsupport.zplatform.itemstack.NBTTagType;
@@ -30,9 +30,17 @@ public class SpigotNBTTagCompoundWrapper extends NBTTagCompoundWrapper {
 		try {
 			return new SpigotNBTTagCompoundWrapper(MojangsonParser.parse(json));
 		} catch (MojangsonParseException e) {
-			SneakyThrow.sneaky(e);
+			sneaky(e);
 		}
 		return null;
+	}
+
+	public static void sneaky(Throwable t) {
+		throw SpigotNBTTagCompoundWrapper.<RuntimeException>superSneaky( t );
+	}
+
+	private static <T extends Throwable> T superSneaky(Throwable t) throws T {
+		throw (T) t;
 	}
 
 	public static SpigotNBTTagCompoundWrapper createEmpty() {

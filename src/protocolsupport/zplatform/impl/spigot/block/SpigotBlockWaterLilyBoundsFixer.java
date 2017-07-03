@@ -1,7 +1,7 @@
 package protocolsupport.zplatform.impl.spigot.block;
 
-import net.minecraft.server.v1_12_R1.AxisAlignedBB;
-import net.minecraft.server.v1_12_R1.BlockWaterLily;
+import net.minecraft.server.AxisAlignedBB;
+import net.minecraft.server.BlockWaterLily;
 import protocolsupport.utils.ReflectionUtils;
 
 public class SpigotBlockWaterLilyBoundsFixer {
