@@ -6,13 +6,13 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
-import org.spigotmc.SneakyThrow;
+//import org.spigotmc.SneakyThrow;
 
-import net.minecraft.server.v1_12_R1.MojangsonParseException;
-import net.minecraft.server.v1_12_R1.MojangsonParser;
-import net.minecraft.server.v1_12_R1.NBTCompressedStreamTools;
-import net.minecraft.server.v1_12_R1.NBTReadLimiter;
-import net.minecraft.server.v1_12_R1.NBTTagCompound;
+import net.minecraft.server.MojangsonParseException;
+import net.minecraft.server.MojangsonParser;
+import net.minecraft.server.NBTCompressedStreamTools;
+import net.minecraft.server.NBTReadLimiter;
+import net.minecraft.server.NBTTagCompound;
 import protocolsupport.zplatform.itemstack.NBTTagCompoundWrapper;
 import protocolsupport.zplatform.itemstack.NBTTagListWrapper;
 
@@ -31,9 +31,17 @@ public class SpigotNBTTagCompoundWrapper extends NBTTagCompoundWrapper {
 		try {
 			return new SpigotNBTTagCompoundWrapper(MojangsonParser.parse(json));
 		} catch (MojangsonParseException e) {
-			SneakyThrow.sneaky(e);
+			sneaky(e);
 		}
 		return null;
+	}
+
+	public static void sneaky(Throwable t) {
+		throw SpigotNBTTagCompoundWrapper.<RuntimeException>superSneaky( t );
+	}
+
+	private static <T extends Throwable> T superSneaky(Throwable t) throws T {
+		throw (T) t;
 	}
 
 	public static SpigotNBTTagCompoundWrapper fromStream(DataInput datainput) throws IOException {
