@@ -12,12 +12,12 @@ import com.mojang.authlib.properties.Property;
 import io.netty.channel.Channel;
 import io.netty.util.concurrent.Future;
 import io.netty.util.concurrent.GenericFutureListener;
-import net.minecraft.server.v1_12_R1.ChatComponentText;
-import net.minecraft.server.v1_12_R1.EnumProtocol;
-import net.minecraft.server.v1_12_R1.NetworkManager;
-import net.minecraft.server.v1_12_R1.Packet;
-import net.minecraft.server.v1_12_R1.PacketListener;
-import net.minecraft.server.v1_12_R1.PlayerConnection;
+import net.minecraft.server.ChatComponentText;
+import net.minecraft.server.EnumProtocol;
+import net.minecraft.server.NetworkManager;
+import net.minecraft.server.Packet;
+import net.minecraft.server.PacketListener;
+import net.minecraft.server.PlayerConnection;
 import protocolsupport.api.events.PlayerPropertiesResolveEvent.ProfileProperty;
 import protocolsupport.zplatform.network.NetworkManagerWrapper;
 import protocolsupport.zplatform.network.NetworkState;
@@ -28,7 +28,7 @@ public class SpigotNetworkManagerWrapper extends NetworkManagerWrapper {
 		return new SpigotNetworkManagerWrapper((NetworkManager) channel.pipeline().get(SpigotChannelHandlers.NETWORK_MANAGER));
 	}
 
-	private final NetworkManager internal;
+	public final NetworkManager internal;
 	public SpigotNetworkManagerWrapper(NetworkManager internal) {
 		this.internal = internal;
 	}
@@ -45,7 +45,7 @@ public class SpigotNetworkManagerWrapper extends NetworkManagerWrapper {
 
 	@Override
 	public InetSocketAddress getRawAddress() {
-		return (InetSocketAddress) internal.getRawAddress();
+		return (InetSocketAddress) internal.l; //May not work. TODO?
 	}
 
 	@Override

@@ -1,7 +1,7 @@
 package protocolsupport.zplatform.impl.spigot.network.handler;
 
-import net.minecraft.server.v1_12_R1.IChatBaseComponent;
-import net.minecraft.server.v1_12_R1.PacketListener;
+import net.minecraft.server.IChatBaseComponent;
+import net.minecraft.server.PacketListener;
 
 public class SpigotFakePacketListener implements PacketListener {
 

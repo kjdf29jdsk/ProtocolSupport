@@ -121,7 +121,7 @@ public abstract class AbstractLoginListenerPlay implements IHasProfile {
 		}
 
 		//bukkit sync login event
-		PlayerLoginEvent bukkitevent = new PlayerLoginEvent(joindata.player, hostname, networkManager.getAddress().getAddress(), networkManager.getRawAddress().getAddress());
+		PlayerLoginEvent bukkitevent = new PlayerLoginEvent(joindata.player, hostname, networkManager.getAddress().getAddress());
 		checkBans(bukkitevent, joindata.data);
 		Bukkit.getPluginManager().callEvent(bukkitevent);
 		if (bukkitevent.getResult() != PlayerLoginEvent.Result.ALLOWED) {
