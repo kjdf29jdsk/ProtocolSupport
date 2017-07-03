@@ -9,23 +9,23 @@ import java.util.Map;
 import java.util.UUID;
 
 import org.bukkit.Material;
-import org.bukkit.craftbukkit.v1_12_R1.entity.CraftEntity;
-import org.spigotmc.SpigotConfig;
+import org.bukkit.craftbukkit.entity.CraftEntity;
+//import org.spigotmc.SpigotConfig;
 
 import com.google.common.collect.BiMap;
 
 import io.netty.buffer.Unpooled;
-import net.minecraft.server.v1_12_R1.*;
-import net.minecraft.server.v1_12_R1.IChatBaseComponent.ChatSerializer;
-import net.minecraft.server.v1_12_R1.PacketPlayInFlying.PacketPlayInLook;
-import net.minecraft.server.v1_12_R1.PacketPlayInFlying.PacketPlayInPosition;
-import net.minecraft.server.v1_12_R1.PacketPlayInFlying.PacketPlayInPositionLook;
-import net.minecraft.server.v1_12_R1.PacketPlayOutEntity.PacketPlayOutEntityLook;
-import net.minecraft.server.v1_12_R1.PacketPlayOutEntity.PacketPlayOutRelEntityMove;
-import net.minecraft.server.v1_12_R1.PacketPlayOutEntity.PacketPlayOutRelEntityMoveLook;
-import net.minecraft.server.v1_12_R1.PacketPlayOutTitle.EnumTitleAction;
-import net.minecraft.server.v1_12_R1.ServerPing.ServerData;
-import net.minecraft.server.v1_12_R1.ServerPing.ServerPingPlayerSample;
+import net.minecraft.server.*;
+import net.minecraft.server.IChatBaseComponent.ChatSerializer;
+import net.minecraft.server.PacketPlayInFlying.PacketPlayInLook;
+import net.minecraft.server.PacketPlayInFlying.PacketPlayInPosition;
+import net.minecraft.server.PacketPlayInFlying.PacketPlayInPositionLook;
+import net.minecraft.server.PacketPlayOutEntity.PacketPlayOutEntityLook;
+import net.minecraft.server.PacketPlayOutEntity.PacketPlayOutRelEntityMove;
+import net.minecraft.server.PacketPlayOutEntity.PacketPlayOutRelEntityMoveLook;
+import net.minecraft.server.PacketPlayOutTitle.EnumTitleAction;
+import net.minecraft.server.ServerPing.ServerData;
+import net.minecraft.server.ServerPing.ServerPingPlayerSample;
 import protocolsupport.api.chat.ChatAPI;
 import protocolsupport.api.chat.components.BaseComponent;
 import protocolsupport.api.chat.components.TextComponent;
@@ -134,7 +134,7 @@ public class SpigotPacketFactory implements PlatformPacketFactory {
 		for (int i = 0; i < profiles.size(); i++) {
 			gprofiles[i] = new com.mojang.authlib.GameProfile(profileUUID, profiles.get(i));
 		}
-		gprofiles = Arrays.copyOfRange(gprofiles, 0, Math.min(gprofiles.length, SpigotConfig.playerSample));
+		gprofiles = Arrays.copyOfRange(gprofiles, 0, Math.min(gprofiles.length, 12));
 		playerSample.a(gprofiles);
 
 		ServerPing serverping = new ServerPing();
