@@ -83,7 +83,7 @@ public abstract class AbstractLoginListenerPlay implements IHasProfile {
 
 	public void tick() {
 		if (!ServerPlatform.get().getMiscUtils().isRunning()) {
-			disconnect(org.spigotmc.SpigotConfig.restartMessage);
+			disconnect("Server Restarting");
 			return;
 		}
 		if ((keepAliveTicks++ % 80) == 0) {
