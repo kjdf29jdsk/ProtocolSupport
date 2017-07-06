@@ -10,6 +10,7 @@ import javax.crypto.Cipher;
 import javax.crypto.SecretKey;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.craftbukkit.CraftServer;
 import org.bukkit.craftbukkit.CraftWorld;
 import org.bukkit.craftbukkit.inventory.CraftItemStack;
@@ -173,7 +174,7 @@ public class SpigotMiscUtils implements PlatformUtils {
 	@Override
 	public <V> FutureTask<V> callSyncTask(Callable<V> call) {
 		FutureTask<V> task = new FutureTask<>(call);
-		getServer().addMainThreadTask(task);
+		getServer().taskQueue.add(task);
 		return task;
 	}
 
