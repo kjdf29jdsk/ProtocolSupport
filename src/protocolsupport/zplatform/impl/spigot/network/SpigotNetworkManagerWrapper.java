@@ -45,7 +45,7 @@ public class SpigotNetworkManagerWrapper extends NetworkManagerWrapper {
 
 	@Override
 	public InetSocketAddress getRawAddress() {
-		return (InetSocketAddress) internal.l; //May not work. TODO?
+		return (InetSocketAddress) getChannel().remoteAddress();
 	}
 
 	@Override
