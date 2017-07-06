@@ -75,11 +75,13 @@ public class SpigotLoginListenerPlay extends AbstractLoginListenerPlay implement
 
 	@Override
 	protected JoinData createJoinData() {
+		long time = System.currentTimeMillis();
 		com.mojang.authlib.GameProfile mojangGameProfile = SpigotMiscUtils.toMojangGameProfile(profile);
 		EntityPlayer entity = new EntityPlayer(server, server.getWorldServer(0), mojangGameProfile, new PlayerInteractManager(server.getWorldServer(0)));
 		entity.playerConnection = new PlayerConnection(server, ((SpigotNetworkManagerWrapper)networkManager).internal, entity); // SportBukkit - create this right away so it's never null
 		entity.hostname = hostname;
 		entity.protocolVersion = ConnectionImpl.getFromChannel(networkManager.getChannel()).getVersion().getId();
+		System.out.println("createJoinDataSpigot" + (System.currentTimeMillis() - time));
 		return new JoinData(entity.getBukkitEntity(), entity) {
 			@Override
 			protected void close() {
@@ -90,6 +92,7 @@ public class SpigotLoginListenerPlay extends AbstractLoginListenerPlay implement
 	private static final SimpleDateFormat banDateFormat = new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
 	@Override
 	protected void checkBans(PlayerLoginEvent event, Object[] data) {
+		long time = System.currentTimeMillis();
 		PlayerList playerlist = server.getPlayerList();
 
 		com.mojang.authlib.GameProfile mojangGameProfile = ((EntityPlayer) data[0]).getProfile();
@@ -118,6 +121,7 @@ public class SpigotLoginListenerPlay extends AbstractLoginListenerPlay implement
 		} else if ((playerlist.players.size() >= playerlist.getMaxPlayers()) && !playerlist.f(mojangGameProfile)) {
 			event.disallow(PlayerLoginEvent.Result.KICK_FULL, "Server is full! Try again soon.");
 		}
+		System.out.println("checkBansSpigot" + (System.currentTimeMillis() - time));
 	}
 
 	private static boolean hasExpired(ExpirableListEntry<?> entry) {

@@ -102,12 +102,14 @@ public abstract class AbstractLoginListener implements IHasProfile {
 	}
 
 	public void initOfflineModeGameProfile() {
+		long time = System.currentTimeMillis();
 		profile = new GameProfile(networkManager.getSpoofedUUID() != null ? networkManager.getSpoofedUUID() : generateOffileModeUUID(), profile.getName());
 		if (networkManager.getSpoofedProperties() != null) {
 			for (ProfileProperty property : networkManager.getSpoofedProperties()) {
 				profile.addProperty(property);
 			}
 		}
+		System.out.println("initOfflineModeGameProfile " + (System.currentTimeMillis() - time));
 	}
 
 	protected UUID generateOffileModeUUID() {
@@ -147,7 +149,9 @@ public abstract class AbstractLoginListener implements IHasProfile {
 						state = LoginState.KEY;
 						networkManager.sendPacket(ServerPlatform.get().getPacketFactory().createLoginEncryptionBeginPacket(ServerPlatform.get().getMiscUtils().getEncryptionKeyPair().getPublic(), randomBytes));
 					} else {
+						long time = System.currentTimeMillis();
 						new PlayerLookupUUID(AbstractLoginListener.this, isOnlineMode).run();
+						System.out.println("lookup1 " + (System.currentTimeMillis() - time));
 					}
 				} catch (Throwable t) {
 					AbstractLoginListener.this.disconnect("Error occured while logging in");
@@ -168,6 +172,7 @@ public abstract class AbstractLoginListener implements IHasProfile {
 	}
 
 	public void handleEncryption(EncryptionPacketWrapper encryptionpakcet) {
+		long time = System.currentTimeMillis();
 		Validate.isTrue(state == LoginState.KEY, "Unexpected key packet");
 		state = LoginState.AUTHENTICATING;
 		loginprocessor.execute(new Runnable() {
@@ -180,7 +185,9 @@ public abstract class AbstractLoginListener implements IHasProfile {
 					}
 					loginKey = encryptionpakcet.getSecretKey(privatekey);
 					enableEncryption(loginKey);
+					long time = System.currentTimeMillis();
 					new PlayerLookupUUID(AbstractLoginListener.this, isOnlineMode).run();
+					System.out.println("lookup1 " + (System.currentTimeMillis() - time));
 				} catch (Throwable t) {
 					AbstractLoginListener.this.disconnect("Error occured while logging in");
 					if (ServerPlatform.get().getMiscUtils().isDebugging()) {
@@ -189,6 +196,7 @@ public abstract class AbstractLoginListener implements IHasProfile {
 				}
 			}
 		});
+		System.out.println("handleEncriptionAbstract " + (System.currentTimeMillis() - time));
 	}
 
 	protected void enableEncryption(SecretKey key) {
@@ -201,6 +209,7 @@ public abstract class AbstractLoginListener implements IHasProfile {
 
 	@SuppressWarnings("unchecked")
 	public void setReadyToAccept() {
+		long time = System.currentTimeMillis();
 		UUID newUUID = null;
 		if (isOnlineMode && !useOnlineModeUUID) {
 			newUUID = generateOffileModeUUID();
@@ -231,6 +240,7 @@ public abstract class AbstractLoginListener implements IHasProfile {
 		AbstractLoginListenerPlay listener = getLoginListenerPlay();
 		networkManager.setPacketListener(listener);
 		listener.finishLogin();
+		System.out.println("setReadyToAccept " + (System.currentTimeMillis() - time));
 	}
 
 	protected abstract AbstractLoginListenerPlay getLoginListenerPlay();

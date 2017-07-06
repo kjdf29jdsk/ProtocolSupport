@@ -97,6 +97,7 @@ public abstract class AbstractLoginListenerPlay implements IHasProfile {
 	}
 
 	private void tryJoin() {
+		long time = System.currentTimeMillis();
 		//find players with same uuid
 		List<Player> toKick = Bukkit.getOnlinePlayers().stream().filter(player -> player.getUniqueId().equals(profile.getUUID())).collect(Collectors.toList());
 		//kick them
@@ -104,14 +105,18 @@ public abstract class AbstractLoginListenerPlay implements IHasProfile {
 			toKick.forEach(player -> player.kickPlayer("You logged in from another location"));
 			return;
 		}
+		System.out.println("tryJoinKick" + (System.currentTimeMillis() - time));
 
 		//no longer attempt to join
 		ready = false;
 
 		//get player
+		long time2 = System.currentTimeMillis();
 		JoinData joindata = createJoinData();
+		System.out.println("tryJoinSyncLogin" + (System.currentTimeMillis() - time2));
 
 		//ps sync login event
+		time2 = System.currentTimeMillis();
 		PlayerSyncLoginEvent syncloginevent = new PlayerSyncLoginEvent(ConnectionImpl.getFromChannel(networkManager.getChannel()), joindata.player);
 		Bukkit.getPluginManager().callEvent(syncloginevent);
 		if (syncloginevent.isLoginDenied()) {
@@ -119,8 +124,10 @@ public abstract class AbstractLoginListenerPlay implements IHasProfile {
 			joindata.close();
 			return;
 		}
+		System.out.println("tryJoinSyncLogin" + (System.currentTimeMillis() - time2));
 
 		//bukkit sync login event
+		time2 = System.currentTimeMillis();
 		PlayerLoginEvent bukkitevent = new PlayerLoginEvent(joindata.player, hostname, networkManager.getAddress().getAddress());
 		checkBans(bukkitevent, joindata.data);
 		Bukkit.getPluginManager().callEvent(bukkitevent);
@@ -129,11 +136,17 @@ public abstract class AbstractLoginListenerPlay implements IHasProfile {
 			joindata.close();
 			return;
 		}
+		System.out.println("tryJoinBukkitLogin" + (System.currentTimeMillis() - time2));
 
 		//send packet to notify about actual login phase finished
+		time2 = System.currentTimeMillis();
 		networkManager.sendPacket(ServerPlatform.get().getPacketFactory().createEmptyCustomPayloadPacket("PS|FinishLogin"));
+		System.out.println("tryJoinPayload" + (System.currentTimeMillis() - time2));
 		//add player to game
+		time2 = System.currentTimeMillis();
 		joinGame(joindata.data);
+		System.out.println("tryJoinJoinGame" + (System.currentTimeMillis() - time2));
+		System.out.println("tryJoin" + (System.currentTimeMillis() - time));
 	}
 
 	protected void keepConnection() {
