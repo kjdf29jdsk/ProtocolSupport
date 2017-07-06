@@ -144,7 +144,7 @@ public class SpigotMiscUtils implements PlatformUtils {
 	@Override
 	public <V> FutureTask<V> callSyncTask(Callable<V> call) {
 		FutureTask<V> task = new FutureTask<>(call);
-		getServer().addMainThreadTask(task);
+		getServer().taskQueue.add(task);
 		return task;
 	}
 
