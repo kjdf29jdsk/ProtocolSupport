@@ -7,6 +7,7 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.FutureTask;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.craftbukkit.CraftServer;
 import org.bukkit.craftbukkit.CraftWorld;
 import org.bukkit.craftbukkit.inventory.CraftItemStack;

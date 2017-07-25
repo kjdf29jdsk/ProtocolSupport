@@ -102,7 +102,7 @@ repositories {
 }
 
 dependencies {
-	shadow files('buildprocessor/BuildProcessor.jar', new File(dllibs, 'glowstone.jar'))
+	shadow files('buildprocessor/BuildProcessor.jar', new File(dllibs, 'glowstone-2017.7.0-20170703.092618-15.jar'))
 	compile 'tc.oc:sportbukkit-api:1.12-pre6-SNAPSHOT'
 	compile 'tc.oc:sportbukkit:1.12-pre6-SNAPSHOT'
 	compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.0'
