@@ -83,7 +83,7 @@ public abstract class AbstractLoginListenerPlay implements IHasProfile {
 
 	public void tick() {
 		if (!ServerPlatform.get().getMiscUtils().isRunning()) {
-			disconnect("Server Restarting");
+			disconnect("Server is restarting");
 			return;
 		}
 		if ((keepAliveTicks++ % 80) == 0) {
