@@ -34,6 +34,7 @@ import protocolsupport.protocol.utils.authlib.GameProfile;
 import protocolsupport.utils.Utils;
 import protocolsupport.zplatform.ServerPlatform;
 import protocolsupport.zplatform.network.NetworkManagerWrapper;
+import protocolsupport.zplatform.impl.spigot.SpigotMiscUtils;
 
 public abstract class AbstractLoginListener implements IHasProfile {
 
@@ -120,6 +121,11 @@ public abstract class AbstractLoginListener implements IHasProfile {
 			@Override
 			public void run() {
 				try {
+					MinecraftServer server = SpigotMiscUtils.getServer();
+
+					if (server.isSuspended()) {
+						server.setSuspended(false);
+					}
 					profile = new GameProfile(null, name);
 
 					PlayerLoginStartEvent event = new PlayerLoginStartEvent(
