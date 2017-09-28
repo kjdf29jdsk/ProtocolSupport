@@ -14,6 +14,7 @@ import java.util.logging.Level;
 import javax.crypto.Cipher;
 import javax.crypto.SecretKey;
 
+import net.minecraft.server.MinecraftServer;
 import org.apache.commons.lang3.Validate;
 import org.bukkit.Bukkit;
 
@@ -35,6 +36,7 @@ import protocolsupport.protocol.utils.MinecraftEncryption;
 import protocolsupport.protocol.utils.authlib.GameProfile;
 import protocolsupport.utils.Utils;
 import protocolsupport.zplatform.ServerPlatform;
+import protocolsupport.zplatform.impl.spigot.SpigotMiscUtils;
 import protocolsupport.zplatform.impl.spigot.network.SpigotChannelHandlers;
 import protocolsupport.zplatform.network.NetworkManagerWrapper;
 
@@ -125,6 +127,11 @@ public abstract class AbstractLoginListener implements IHasProfile {
 			@Override
 			public void run() {
 				try {
+					MinecraftServer server = SpigotMiscUtils.getServer();
+
+					if (server.isSuspended()) {
+						server.setSuspended(false);
+					}
 					profile = new GameProfile(null, name);
 
 					PlayerLoginStartEvent event = new PlayerLoginStartEvent(
