@@ -10,7 +10,7 @@ import protocolsupport.utils.Utils;
 
 public class Compressor {
 
-	private static final int compressionLevel = Utils.getJavaPropertyValue("compressionlevel", 3, Integer::parseInt);
+	private static final int compressionLevel = Utils.getJavaPropertyValue("compressionlevel", 0, Integer::parseInt);
 
 	static {
 		ProtocolSupport.logInfo("Compression level: "+compressionLevel);
