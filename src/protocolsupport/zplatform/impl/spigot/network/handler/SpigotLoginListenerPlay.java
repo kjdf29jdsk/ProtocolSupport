@@ -77,7 +77,7 @@ public class SpigotLoginListenerPlay extends AbstractLoginListenerPlay implement
 	protected JoinData createJoinData() {
 		com.mojang.authlib.GameProfile mojangGameProfile = SpigotMiscUtils.toMojangGameProfile(profile);
 		EntityPlayer entity = new EntityPlayer(server, server.getWorldServer(0), mojangGameProfile, new PlayerInteractManager(server.getWorldServer(0)));
-		entity.playerConnection = new PlayerConnection(server, ((SpigotNetworkManagerWrapper)networkManager).internal, entity); // SportBukkit - create this right away so it's never null
+		entity.playerConnection = new PlayerConnection(server, ((SpigotNetworkManagerWrapper)networkManager).unwrap(), entity); // SportBukkit - create this right away so it's never null
 		entity.hostname = hostname;
 		entity.protocolVersion = ConnectionImpl.getFromChannel(networkManager.getChannel()).getVersion().getId();
 		return new JoinData(entity.getBukkitEntity(), entity) {

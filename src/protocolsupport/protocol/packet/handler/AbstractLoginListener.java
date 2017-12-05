@@ -35,6 +35,7 @@ import protocolsupport.utils.Utils;
 import protocolsupport.zplatform.ServerPlatform;
 import protocolsupport.zplatform.network.NetworkManagerWrapper;
 import protocolsupport.zplatform.impl.spigot.SpigotMiscUtils;
+import net.minecraft.server.MinecraftServer;
 
 public abstract class AbstractLoginListener implements IHasProfile {
 
