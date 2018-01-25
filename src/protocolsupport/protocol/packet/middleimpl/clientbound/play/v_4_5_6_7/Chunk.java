@@ -37,7 +37,7 @@ public class Chunk extends MiddleChunk {
 			chunkdata.writeShort(bitmask);
 			chunkdata.writeShort(0);
 			transformer.loadData(data, bitmask, hasSkyLight, full);
-			byte[] compressed = Compressor.compressStatic(transformer.toLegacyData(version));
+			byte[] compressed = Compressor.compressLegacyStatic(transformer.toLegacyData(version));
 			chunkdata.writeInt(compressed.length);
 			chunkdata.writeBytes(compressed);
 		}

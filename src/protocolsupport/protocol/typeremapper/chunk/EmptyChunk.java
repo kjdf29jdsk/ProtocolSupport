@@ -10,8 +10,8 @@ public class EmptyChunk {
 		return hasSkyLight ? fake18ChunkDataSky : fake18ChunkDataNoSky;
 	}
 
-	private static final byte[] fakePre18ChunkDataSky = Compressor.compressStatic(new byte[4096 + 2048 + 2048 + 2048 + 256]);
-	private static final byte[] fakePre18ChunkDataNoSky	= Compressor.compressStatic(new byte[4096 + 2048 + 2048 + 256]);
+	private static final byte[] fakePre18ChunkDataSky = Compressor.compressLegacyStatic(new byte[4096 + 2048 + 2048 + 2048 + 256]);
+	private static final byte[] fakePre18ChunkDataNoSky	= Compressor.compressLegacyStatic(new byte[4096 + 2048 + 2048 + 256]);
 	public static byte[] getPre18ChunkData(boolean hasSkyLight) {
 		return hasSkyLight ? fakePre18ChunkDataSky : fakePre18ChunkDataNoSky;
 	}
