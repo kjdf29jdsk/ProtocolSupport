@@ -223,7 +223,11 @@ public abstract class AbstractLoginListener implements IHasProfile {
 					new ChannelFutureListener() {
 						@Override
 						public void operationComplete(ChannelFuture future)  {
-							ServerPlatform.get().getMiscUtils().enableCompression(networkManager.getChannel().pipeline(), threshold);
+							if (connection.getVersion().isBefore(ProtocolVersion.MINECRAFT_1_9)) {
+								ServerPlatform.get().getMiscUtils().enableLegacyCompression(networkManager.getChannel().pipeline(), threshold);
+							} else {
+								ServerPlatform.get().getMiscUtils().enableCompression(networkManager.getChannel().pipeline(), threshold);
+							}
 						}
 					}
 				);

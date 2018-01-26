@@ -240,7 +240,11 @@ public class InitialPacketDecoder extends SimpleChannelInboundHandler<ByteBuf> {
 			PlatformUtils putils = ServerPlatform.get().getMiscUtils();
 			putils.setFraming(channel.pipeline(), new VarIntFrameDecoder(), new VarIntFrameEncoder());
 			if (encapsulatedinfo.hasCompression()) {
-				putils.enableCompression(channel.pipeline(), putils.getCompressionThreshold());
+				if (version.isBefore(ProtocolVersion.MINECRAFT_1_9)) {
+					putils.enableLegacyCompression(channel.pipeline(), putils.getCompressionThreshold());
+				} else {
+					putils.enableCompression(channel.pipeline(), putils.getCompressionThreshold());
+				}
 			}
 			if ((encapsulatedinfo.getAddress() != null) && connection.getRawAddress().getAddress().isLoopbackAddress()) {
 				connection.changeAddress(encapsulatedinfo.getAddress());

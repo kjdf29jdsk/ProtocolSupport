@@ -42,6 +42,7 @@ import protocolsupport.protocol.utils.authlib.GameProfile;
 import protocolsupport.zplatform.PlatformUtils;
 import protocolsupport.zplatform.impl.spigot.itemstack.SpigotNBTTagCompoundWrapper;
 import protocolsupport.zplatform.impl.spigot.network.SpigotChannelHandlers;
+import protocolsupport.zplatform.impl.spigot.network.pipeline.SpigotLegacyPacketCompressor;
 import protocolsupport.zplatform.impl.spigot.network.pipeline.SpigotPacketCompressor;
 import protocolsupport.zplatform.impl.spigot.network.pipeline.SpigotPacketDecompressor;
 import protocolsupport.zplatform.impl.spigot.network.pipeline.SpigotWrappedPrepender;
@@ -209,6 +210,13 @@ public class SpigotMiscUtils implements PlatformUtils {
 		pipeline
 		.addAfter(SpigotChannelHandlers.SPLITTER, "decompress", new SpigotPacketDecompressor(compressionThreshold))
 		.addAfter(SpigotChannelHandlers.PREPENDER, "compress", new SpigotPacketCompressor(compressionThreshold));
+	}
+
+	@Override
+	public void enableLegacyCompression(ChannelPipeline pipeline, int compressionThreshold) {
+		pipeline
+		.addAfter(SpigotChannelHandlers.SPLITTER, "decompress", new SpigotPacketDecompressor(compressionThreshold))
+		.addAfter(SpigotChannelHandlers.PREPENDER, "compress", new SpigotLegacyPacketCompressor(compressionThreshold));
 	}
 
 	@Override

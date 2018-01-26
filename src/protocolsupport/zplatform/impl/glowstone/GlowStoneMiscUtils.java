@@ -208,6 +208,11 @@ public class GlowStoneMiscUtils implements PlatformUtils {
 	}
 
 	@Override
+	public void enableLegacyCompression(ChannelPipeline pipeline, int compressionThreshold) {
+		enableCompression(pipeline, compressionThreshold);
+	}
+
+	@Override
 	public void enableEncryption(ChannelPipeline pipeline, SecretKey key, boolean fullEncryption) {
 		pipeline.addBefore(GlowStoneChannelHandlers.FRAMING, ChannelHandlers.DECRYPT, new PacketDecrypter(MinecraftEncryption.getCipher(Cipher.DECRYPT_MODE, key)));
 		if (fullEncryption) {

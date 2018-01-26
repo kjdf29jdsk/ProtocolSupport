@@ -55,6 +55,8 @@ public interface PlatformUtils {
 
 	public void enableCompression(ChannelPipeline pipeline, int compressionThreshold);
 
+	public void enableLegacyCompression(ChannelPipeline pipeline, int compressionThreshold);
+
 	public void enableEncryption(ChannelPipeline pipeline, SecretKey key, boolean fullEncryption);
 
 	public void setFraming(ChannelPipeline pipeline, IPacketSplitter splitter, IPacketPrepender prepender);
