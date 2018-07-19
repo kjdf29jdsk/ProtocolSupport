@@ -115,6 +115,10 @@ public class IdRemapper {
 			registerRemapEntry(Material.ACACIA_DOOR, Material.WOODEN_DOOR, ProtocolVersionsHelper.BEFORE_1_8);
 			registerRemapEntry(Material.DARK_OAK_DOOR, Material.WOODEN_DOOR, ProtocolVersionsHelper.BEFORE_1_8);
 			registerRemapEntry(Material.DAYLIGHT_DETECTOR_INVERTED, Material.DAYLIGHT_DETECTOR, ProtocolVersionsHelper.BEFORE_1_8);
+			for (int i : new Integer[]{0, 5, 6, 7, 8, 13, 14, 15}) {
+				registerRemapEntry(Material.STONE_BUTTON, i, Material.LEVER, i, ProtocolVersionsHelper.BEFORE_1_8);
+				registerRemapEntry(Material.WOOD_BUTTON, i, Material.LEVER, i, ProtocolVersionsHelper.BEFORE_1_8);
+			}
 			registerRemapEntry(Material.STAINED_GLASS, Material.GLASS, ProtocolVersionsHelper.BEFORE_1_7);
 			registerRemapEntry(Material.STAINED_GLASS_PANE, Material.THIN_GLASS, ProtocolVersionsHelper.BEFORE_1_7);
 			registerRemapEntry(Material.LEAVES_2, Material.LEAVES, ProtocolVersionsHelper.BEFORE_1_7);
