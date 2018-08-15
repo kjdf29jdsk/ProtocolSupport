@@ -38,8 +38,7 @@ gen.mkdirs();
 
 task updateLibs(type: Download) {
 	src([
-		'https://yivesmirror.com/files/spigot/spigot-1.12.2-R0.1-SNAPSHOT-b1408.jar',
-		'https://repo.glowstone.net/repository/snapshots/net/glowstone/glowstone/2018.0.0-SNAPSHOT/glowstone-2018.0.0-20171205.014003-7.jar'
+		'https://yivesmirror.com/files/spigot/spigot-1.12.2-R0.1-SNAPSHOT-b1408.jar'
 	])
 	dest dllibs
 	onlyIfNewer true
@@ -102,7 +101,7 @@ repositories {
 }
 
 dependencies {
-	shadow files('buildprocessor/BuildProcessor.jar', new File(dllibs, 'glowstone-2018.0.0-20171205.014003-7.jar'))
+	shadow files('buildprocessor/BuildProcessor.jar')
 	compile 'tc.oc:sportbukkit-api:1.12.2-R0.1-SNAPSHOT'
 	compile 'tc.oc:sportbukkit:1.12.2-R0.1-SNAPSHOT'
 	compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.0'

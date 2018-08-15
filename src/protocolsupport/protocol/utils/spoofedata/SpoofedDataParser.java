@@ -9,9 +9,6 @@ public class SpoofedDataParser {
 	private static final List<Function<String, SpoofedData>> parsers = new ArrayList<>();
 
 	static {
-		if (isPaperHandshakeEvent()) {
-			parsers.add(new PaperSpoofedDataParser());
-		}
 		parsers.add(new BungeeCordSpoofedDataParser());
 	}
 
