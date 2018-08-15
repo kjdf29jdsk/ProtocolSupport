@@ -12,3 +12,6 @@ commands:
     description: All ProtocolSupport commands
     aliases: ps
     usage: '/protocolsupport help'
+permissions:
+  protocolsupport.admin:
+    default: false
