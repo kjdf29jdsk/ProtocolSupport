@@ -38,7 +38,7 @@ gen.mkdirs();
 
 task updateLibs(type: Download) {
 	src([
-		'https://yivesmirror.com/files/spigot/spigot-1.12.2-R0.1-SNAPSHOT-b1408.jar'
+		'https://archive.mcmirror.io/Spigot/spigot-1.12.2-R0.1-SNAPSHOT-b1408.jar'
 	])
 	dest dllibs
 	onlyIfNewer true
